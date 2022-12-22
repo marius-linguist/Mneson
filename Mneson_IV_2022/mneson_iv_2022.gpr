@@ -1,0 +1,5 @@
+project Mneson_IV_2022 is
+    for Source_Dirs use ("src", "ai302");
+    for Object_Dir use "obj";
+    for Main use ("test.adb");
+end Mneson_IV_2022;

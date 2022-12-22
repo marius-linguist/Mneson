@@ -1,0 +1,357 @@
+MNESON REVISION HISTORY
+
+20221222:
+Revised to build with GNAT Community 2021 (20210519-103) targeting x86_64-w64-mingw32
+A few changes in Mneson.Base for that effect.
+Builds OK:-)
+New main program Test runs the old tests: some tests FAIL :-(
+/*
+Retired dead references from this revision history document:
+(C) Marius Amado Alves (amado.alves@netcabo.pt)
+License: SDC Conditions (www.softdevelcoop.org)
+*/
+
+20050919:
+Bugs found and fixed or circumvented. See Annex 4. One bug (4.2) may be on the AI302 library.
+
+20050905:
+Detected and fixed various bugs, while writing SynNet.
+Implemented Markers.
+
+20050502:
+Verified theoretically that String_Maps does not store the string value in RAM.
+Less_Than for strings now compares string value: string vertices all ordered by string value now.
+For efficiency here, considering first comparing on a fixed head slice,
+then, if required, comparing the whole value.
+
+20050212:
+Improved Process_Vertex representation
+(thanks Martin K., Bob Duff and others on comp.lang.ada)
+Improved test reporting and wrote more tests.
+
+20050211:
+Started Mneson IV.
+Moved to Mac OS X.
+Stayed with GNAT.
+Rewrote programmer tests.
+Renamed Mneson.Test to Mneson.Tests.
+Fixed bug in Save_As.
+Considering renaming Exec_Now to Call_Now.
+Improved Img for strings.
+Rewrote Mneson.Tools.Dump
+
+20050107:
+More things moved from Mneson.Base to the root package Mneson.
+Types and special values simplified.
+Vertex order implementation simplified and reviewed.
+Exec_Now slightly modified, and documented.
+LT_For_String_Vertices simplified and documented.
+
+20050106:
+Exec_Now finished and tested.
+
+20041122:
+Privatized vertex order (Mneson.Base)
+
+20041116:
+Moved types and templates to root package Mneson.
+
+20041115:
+Moved Img/Val operations from Mneson.Base to Mneson.Text.
+Improved them.
+Created the Exec_Now system.
+
+20041110:
+Added Float_64.
+Packages changed: Types, Base.
+Fixed point types Giganano etc. being considered.
+Notice: string vertices are not ordered by string value.
+This is for time efficiency reasons.
+But requires more thought.
+Maybe it is possible to maintain efficiency level
+and order by value.
+
+20041006:
+Thought about the Vertex_Array issue again,
+but did not change anything.
+Comments welcome.
+
+20040924:
+Removed Vertex_Array from template.
+A Vertex_Array is now defined in Structures.
+This issue needs further thought.
+Is a vertex array really required?
+
+20040602:
+Improved (fixed?) Base.For_Each_Common_Target.
+Solved Structures.Get_Value slowness (see Annex 2).
+Lesson learnt: minimize local generic instantiations.
+New Annex 3.
+
+20040601:
+Package reorganization.
+Help wanted: see Annex 2.
+
+20040503:
+A lot of improvements.
+Added Annex 1 to this log.
+
+20040419:
+Improvements to the Mntext language and compiler:
+- introduced blocks
+- fixed the tokenizer to allow null white space
+between a special character and a non-delimited text item.
+Introduced a Lock protected object as a simple means of
+obtaining exclusive access.
+Abandoning the idea of a complex protected object.
+
+20040407:
+Big introductions: calculus, conventions, Mntext.
+For this and the previous version I've put Mneson.P on hold.
+This is because I plan to generate the source code from a typed graph.
+Reasons for this include the automatic generation of a lot of items,
+including Mneson.P and Mneson_P.
+So this edition has changes inside Mneson only.
+Added a compiler for Mntext, a textual language for the description of attribute instances.
+Wrote the Mneson Conventions.
+This version is provisional.
+I think the compiler has a tiny bug.
+The Manual is under revision, and is a mess right now.
+
+20040405:
+Added Mneson calculus operations (but not in Mneson.P yet).
+Added Show_Subgraph to package Mneson.
+Incremented the manual (but not in the webpage).
+
+20040401:
+Improved valueless vertex operations.
+Mnedit now accepts valueless vertices.
+
+20040331:
+Added common-targets operations.
+The interactive tool is now called Mnedit.
+Package Mn instantiates a Mneson graph.
+Added operation COMMON, that shows the common targets.
+In the body of Mneson shortened all Inverse name parts to Inv.
+
+20040325:
+Created Mneson/P as protected object P nested in package Mneson.
+Other changes in package Mneson:
+renamed each generic operation to Generic_...;
+added non generic operations with the previous names of the generic;
+added types Process_Vertex and Process_Link.
+Also created an utility separate package (spec only) Mneson_P that simply renames all types in Mneson and operations in Mneson.P
+Changed Test.Interactive so that the CLOSED prompt does not show a name.
+Created Test_P.Interactive, equal to Test.Interactive except it is based on Mneson_P instead of Mneson.
+Reviewed package Order.
+Cosmetic changes to all units.
+
+20040324:
+Mneson Manual created.
+
+20040323a:
+First release.
+
+
+***************************
+*****                 *****
+*****     ANNEXES     *****
+*****                 *****
+***************************
+
+
+**********************************
+Annex 1. XML_Automaton old headers
+**********************************
+
+----  ATTENTION: THE USE OF THIS SOFTWARE IS SUBJECT TO CONDITIONS!     ----
+----  This is part of Adªlib, by Mário Amado Alves (maa@di.fct.unl.pt), ----
+----  available at http://lexis.di.fct.unl.pt/ADaLIB/.                  ----
+----  Adªlib is gratis, but you must know the conditions of its use.    ----
+
+-- xml_automaton.ads
+-- by Mário Amado Alves
+-- June 2000: created and tested
+-- Category: XML
+-- 2000-06-12: Attribute_Value_Delimiter array
+--   (instead of single variable Delimiter)
+-- 2000-06-14: Expecting_Element_Name_Or_Slash renamed to
+--   Expecting_Element_Name_Or_Special_Character;
+--   new kinds Markup_Declaration, Processing_Instruction;
+--   package now 100% bug free
+
+----  ATTENTION: THE USE OF THIS SOFTWARE IS SUBJECT TO CONDITIONS!     ----
+----  This is part of Adªlib, by Mário Amado Alves (maa@di.fct.unl.pt), ----
+----  available at http://lexis.di.fct.unl.pt/ADaLIB/.                  ----
+----  Adªlib is gratis, but you must know the conditions of its use.    ----
+
+-- xml_automaton.adb
+-- by Mário Amado Alves
+-- June 2000: created and tested
+-- Category: XML
+-- 2000-06-12: Attribute_Value_Delimiter array
+--   (instead of single variable Delimiter);
+--   Attribute arrays values no more reset (to save time)
+--   (only Attribute_Count reset)
+-- 2000-06-14: minimal treatment of Markup_Declaration
+--   and Processing_Instruction; now 100% bug free
+
+
+****************************************
+Annex 2. Problem with Get_Value : SOLVED
+****************************************
+
+Mneson.Structures.Get_Value shows a miserable absolute time performance
+of circa 10 ms. See Mneson.Test.Run2 and others.
+
+I try to analyse this problem with gprof, but it seems gprof is buggy:
+the call graph includes functions that are never called!
+So I suspect that gprof is confusing function names and leading me astray.
+
+However gprof consistently put's AI302 (old version) internal functions
+high up on the flat file.
+Tree functions get called tens of millions of times.
+So maybe this is a problem with AI302.
+A possible course of action is therefore to sycn Mneson with
+the new version of AI302 (now) or with Ada.Containers (in 2005).
+
+*** Thanks a lot to anyone willing to help here. ***
+
+I'm not experienced with gprof.
+
+Note that to research the gprof bug I have commented out some entities
+in Mneson.Base and Mneson.Templates and perhaps elsewhere.
+Some units might not compile because of this.
+If this happens just uncomment the entities back in.
+Sorry.
+
+2004-06-01
+--MAA
+
+Nailed the bastard: Base.For_Each_Target.
+Intriguing: it was slow aparently because it was implemented
+as a long chain of generic local instantiations (see 20040601).
+Rewriten without instantiations.
+For_Each_Source too.
+2004-06-02
+--MAA
+
+--   procedure For_Each_Target (Source : Vertex; Process: Process_Vertex) is
+--      procedure Actual_For_Each_Target is
+--         new Generic_For_Each_Target (Process.all);
+--   begin
+--      Actual_For_Each_Target (Source);
+--   end;
+-- TOO SLOW (10 ms)
+-- changed For_Each_Source too.
+
+Changed to:
+
+   procedure For_Each_Target (Source : Vertex; Process: Process_Vertex) is
+      use Link_Sets;
+      Next, Local_Back : Cursor_Type;
+   begin
+      Next := Lower_Bound (Links, (Source, Front_Vertex));
+      Local_Back := Lower_Bound (Links, (Source, Back_Vertex));
+      while Next /= Null_Cursor and Next /= Local_Back and Next /= Back (Links) loop
+         Process (Element (Next) (2));
+         Increment (Next);
+      end loop;
+   end;
+
+
+
+*********************
+Annex 3. Optimization
+*********************
+
+From the above problem (Annex 2),
+I suspect inlining pragmas could do much good to time performance of Mneson.
+However to write them the tests must be reliably profiled.
+Gprof doesn't seem to be reliable (see Annex 2).
+Help wanted here.
+Thanks.
+--MAA
+
+
+*************************************
+Annex 4. Disconnect and For_Each bugs
+*************************************
+
+4.1 Disconnect
+
+4.1.1 Wrong
+
+   procedure Buggy_Disconnect_From_Targets (Source : Vertex) is
+   begin
+      Delete_All_In_Range
+        (Link_Set => Links,
+         From => (Source, Front_Vertex),
+         To => (Source, Back_Vertex));
+      --Delete_All_In_Range                     BUG!!!
+      --  (Link_Set => Inv_Links,               Deletes too much inv links!!!
+      --   From => (Front_Vertex, Source),      
+      --   To => (Back_Vertex, Source));        
+   end;
+
+4.1.2 Right
+
+   procedure Disconnect_From_Targets (Source : Vertex) is
+      use Link_Sets;
+      I : Cursor_Type := Lower_Bound (Links, (Source, Front_Vertex));
+      L : Link_Type;
+   begin
+      while I /= Back (Links) and I /= Null_Cursor loop
+         L := Element (I);
+         exit when L (1) > Source;
+         Delete (Links, I);
+         Delete (Inv_Links, (L (2), L (1)));
+      end loop;
+   end;
+
+4.2 For_Each
+
+-- ******************************************
+-- GOTCHA!
+-- Todo: improve the code of the next two procs.
+-- Also: understand why the condition in the while is not enough.
+
+   procedure For_Each_Target (Source : Vertex; Process: Process_Vertex) is
+use ada.text_io;
+      use Link_Sets;
+      Next, Local_Back : Cursor_Type;
+   begin
+      Next := Lower_Bound (Links, (Source, Front_Vertex));
+      Local_Back := Lower_Bound (Links, (Source, Back_Vertex));
+      while Next /= Null_Cursor and Next /= Local_Back and Next /= Back (Links) loop
+exit when element(next)(1) > source;
+if not connected(source,element(next)(2)) then
+ put_line("GOTCHA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+end if;
+         Process (Element (Next) (2));
+         Increment (Next);
+      end loop;
+   end;
+
+4.3 Unabridged revision history
+
+20050916:
+Nasty bug exterminated! It was a logic fault in the Disconnect_From_... procedures (see code). Took me a total of 4 days to catch this one. I wish we had code reviews around here.
+- Amendment to last entry: efficiency is the same in both paradigms. However rewriting in the adjacent sets paradigm helped me discover the bug.
+- Still a bug left? The selfconnected node is still there. It seems to be the first (in time) vless vtx that is the AI of a singleton selection (caclulus). It seems harmless, but I'll be damned if I understand where it comes from!
+
+Later on the same day:
+Decided against adjacent sets. Some operations not efficient because many bags must be updated (e.g. disconnect_from_targets). Back to debugging... arg*^&%$%$£^%!!!!
+
+20050915:
+Very strange bug! A calculus vertex is selfconnected! Maybe related to Mark. Suspect a bug in the link set operation. Decided to make a Mneson.Base version based on neighbour sets. Mneson V.
+
+20050905:
+Detected and fixed various bugs, while writing SynNet.
+Implemented Markers.
+Now, there is this one bug that escapes me: Disconnect/1 does not work when called in the callback process of an iterator e.g. For_Each_Target.
+
+4.4 Nexus with Annex 2 bug
+
+The slowness of the generic version, which was surprising and remained
+unexplained, might be due to this bug. The generic procedure was wrongly written.

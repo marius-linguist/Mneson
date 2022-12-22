@@ -1,0 +1,1 @@
+with Mneson.Base;with Mneson.Calculus;package Mneson.XMark is   package Base is new Mneson.Base;   package Calc is new Mneson.Calculus (Base.Work);end;
