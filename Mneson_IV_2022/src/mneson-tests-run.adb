@@ -5,7 +5,7 @@
 --with Ada.Calendar; use Ada.Calendar;
 with Ada.Command_Line; use Ada.Command_Line;
 --with Ada.Numerics.Elementary_Functions; use Ada.Numerics.Elementary_Functions;
-with Ada.Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
 with Mneson;
 with Mneson.Calculus;
 with Mneson.Monitors;
@@ -30,7 +30,9 @@ begin
    begin
       New_Test ("Size");
       if Process_Vertex'Size = Process_Vertex_Size then Pass;
-      else Fail;
+      else
+         Put_Line (" real size =" & Process_Vertex'Size'Image);
+         Fail;
       end if;
       New_Test ("Alignment");
       if Modular_64'Alignment = Integer'Alignment then Pass;

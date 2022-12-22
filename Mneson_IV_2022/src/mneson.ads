@@ -60,7 +60,7 @@ package Mneson is
    -------------------------------
 
    type Process_Vertex is access procedure (X : Vertex);
-   Process_Vertex_Size : constant := 32;
+   Process_Vertex_Size : constant := 64;
    type Process_Link   is access procedure (Source, Target : Vertex);
    type Process_String is access procedure (S : String);
 
